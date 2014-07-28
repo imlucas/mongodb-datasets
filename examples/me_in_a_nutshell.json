@@ -35,9 +35,9 @@
         }
       },
       "object": {
-        "ISODate": "{{Date(chance.date())}}",
-        "number": "{{Double(2)}}",
-        "boolean": "{{Boolean(true)}}",
+        "ISODate": "{{D(chance.date())}}",
+        "number": "{{N(2)}}",
+        "boolean": "{{B(true)}}",
         "long": "{{NumberLong(3)}}",
         "more": "Please refer to docs for the complete list"
       },

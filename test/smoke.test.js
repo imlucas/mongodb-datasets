@@ -14,8 +14,8 @@ describe('generate other datatypes', function() {
 
   before(function(done) {
     var schema = {
-      username: '{{chance.name()}}',
-      email: '{{chance.email()}}'
+      username: '{{c.name()}}',
+      email: '{{c.email()}}'
     };
     var opts = {
       size: 5,

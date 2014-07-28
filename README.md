@@ -1,7 +1,9 @@
 # MongoDB-Datasets
 
-[![build status](https://secure.travis-ci.org/imlucas/mongodb-datasets.png)](http://travis-ci.org/imlucas/mongodb-datasets)
-
+[![Build Status](https://secure.travis-ci.org/imlucas/mongodb-datasets.png)](http://travis-ci.org/imlucas/mongodb-datasets)
+[![Dependency Status](https://david-dm.org/imlucas/mongodb-datasets.svg?theme=shields.io)](https://david-dm.org/imlucas/mongodb-datasets)
+![npm version](http://img.shields.io/npm/v/mongodb-datasets.svg)
+<!-- [![Coverage Status](https://coveralls.io/repos/imlucas/mongodb-datasets/badge.png)](https://coveralls.io/r/imlucas/mongodb-datasets) -->
 What's a database without any data? With mongodb-datasets you never worry about
 how to populate your MongoDB database with the data as you wish. Unlike a simple
 populator, mongodb-datasets is designed to offer you the maximum control of the
@@ -13,7 +15,9 @@ To use the `mongodb-datasets` command, install mongodb-datasets globally:
 
     $ npm install -g mongodb-datasets
 
-To use the Javascript API, simply add mongodb-datasets to the package.json.
+To use the Javascript API, in your project directory:
+
+    $ npm install mongodb-datasets --save
 
 ## A Simple Example
 
@@ -96,20 +100,22 @@ allowed, whereas a mix of different types is not. Some examples:
 
 This project uses [chance.js](http://chancejs.com/) and
 [faker.js](https://github.com/FotoVerite/Faker.js) as the internal random data
-generator. To invoke them, simply do, for instance:
-* `{ "use_chance": "{{ chance.name({ gender: 'female' }) }}" }`
+generator. To invoke them, use `faker.<method>` and `chance.<method>`, or
+shortcuts `f.<method>` and `c.<method>`.
+* `{ "use_chance": "{{ c.name({ gender: 'female' }) }}" }`
 * `{ "use_faker": "{{ faker.Company.catchPhrase() }}" }`
 
 ### Type conversion
 
 Maybe you've already noticed. It's not very useful to generate a string from
-`"{{chance.year()}}"` which is expected to apply commands such as `$gte`.
+`"{{c.year()}}"` which is expected to apply commands such as `$gte`.
 Since its MongoDB-specific nature, the package currently supports common bson
-types as in [bson](https://github.com/mongodb/js-bson) module, such as Double,
+types as in [bson](https://github.com/mongodb/js-bson) module, such as Number,
 Timestamp, Date, and ObjectID. Note that once conversion is triggered, the
-target object will be the only produced content. Some examples:
-* `{ "date": "{{ Date(chance.date()) }}" }` becomes `ISODate(...)` in MongoDB
-* `{ "two": "{{ Double(1) + Double(1) }}" }` produces `{ "two": 1 }`
+target object will be the only produced content. Shortcuts are available: D for
+Date, N for Number, O for ObjectID, B for Boolean. Some examples:
+* `{ "date": "{{ D(c.date()) }}" }` becomes `ISODate(...)` in MongoDB
+* `{ "two": "{{ N(1) + N(1) }}" }` produces `{ "two": 1 }`
 
 ### Document-level scope
 
@@ -119,11 +125,11 @@ in a Javascript object in the sense that all properties must correspond to
 a name/value pair. Using values not yet generated is also supported, and the
 invoked values will not be generated more than once per inserted document. You
 can also access a field's parent using `this._$parent`.
-* `{ "one": 1, "two: "{{ Double(this.one + 1) }}" }`
+* `{ "one": 1, "two: "{{ Number(this.one + 1) }}" }`
 * `{ "first_name": "{{ this.name.first }}",
-     "name": { "first": "{{ chance.first() }}" } }` produces consistent result.
+     "name": { "first": "{{ c.first() }}" } }` produces consistent result.
 * `{ "echo": {{ Object.keys(this) }} }` returns `{ "echo": [ "echo" ] }`
-* `{ "1": { "2": "{{ this._$parent.3 }}" }, "3": "{{ chance.d6() }}" }`
+* `{ "1": { "2": "{{ this._$parent.3 }}" }, "3": "{{ c.d6() }}" }`
 
 ### Field visibility
 
@@ -131,8 +137,8 @@ You also have control on the visibility of each field. By default, fields with
 name starting with `_$` are hidden. To toggle the visibility, simply call
 `show(boolean)` or `hide(boolean)` anywhere in the target field's expression.
 Note that while hidden one can still access its newly generated value.
-* `{ "_$digit": 3, "lat": "{{ chance.latitude({fixed: this._$digit}) }}",
-                   "lng": "{{ chance.longitude({fixed: this._$digit}) }}"}`
+* `{ "_$digit": 3, "lat": "{{ c.latitude({fixed: this._$digit}) }}",
+                   "lng": "{{ c.longitude({fixed: this._$digit}) }}"}`
 * `{ "temperature": "{{ util.random(40, 130) }}",
      "warning": "Too hot! {{ hide(this.temperature < 100) }}" }`
 
@@ -140,7 +146,8 @@ Note that while hidden one can still access its newly generated value.
 
 We are happy to add more methods in a prompt manner should you find any could be
 potentially helpful. Currently we have:
-* `_$size()` - returns the total number of generated docs in the current run
+* `_$size` - the total number of generated docs in the current run
+* `_$index` - the index of the current document, starting from 0
 * `counter([id], [start], [step])` - the underlying counts are accessble
   anywhere in the outmost document so that you can use the same counter
   consistently regardless of its position
@@ -164,18 +171,36 @@ potentially helpful. Currently we have:
 
 ## Purpose of this project
 
-With the explosion of data volume and availability, users are
-transitioning their focus to analysis and data-mining on these vast
-datasets. We believe MongoDB is ideally positioned to provide the
-backbone to meet these market needs. While several users have already
-begun to exploit this, it requires substantial sunk costs including
-mapping the aggregation framework to their current mental model,
-designing efficient schemas, and acquiring datasets for prototyping.
-Work to humanize the aggregation framework is already underway. We
-believe supplying users with example schemas for common use cases,
-such as user activity streams, time series data, and entity management,
-and more importantly, corresponding datasets for prototyping will
-establish MongoDB as a leader in this emerging market.
+With the explosion of data volume and availability, users are transitioning
+their focus to analysis and data-mining on these vast datasets. We believe
+MongoDB is ideally positioned to provide the backbone to meet these market
+needs. While several users have already begun to exploit this, it requires
+substantial sunk costs including mapping the aggregation framework to their
+current mental model, designing efficient schemas, and acquiring datasets for
+prototyping. Work to humanize the aggregation framework is already underway. We
+believe supplying users with example schemas for common use cases, such as user
+activity streams, time series data, and entity management, and more importantly,
+corresponding datasets for prototyping will establish MongoDB as a leader in
+this emerging market.
+
+## Change log
+
+### 0.1.0 - Jul. 23, 2014
+First release!
+
+### 0.1.1 - Jul. 23, 2014
+* Fixed bug that causes `mongodb-datasets` command crash
+* Updated README to include all features
+
+### 0.1.3 - Jul. 24, 2014
+* Fixed bug that causes inconsistent content if `this.<embedded doc>` is used
+
+### 0.1.4 - Jul. 24, 2014
+* Changed `Double` to `Number` to hide Javascript's `Number` constructor
+* Added shortcuts `N, D, O, B` for `Number, Date, ObjectID, Boolean`
+* Added shortcuts `f` for `faker` and `c` for `chance`
+* Added `_$index`
+* Made the former `_$size()` a property `_$size`
 
 ## License
 

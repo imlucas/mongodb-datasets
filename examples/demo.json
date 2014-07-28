@@ -3,8 +3,8 @@
 "name": "{{chance.name({gender: 'male'})}}",
 "twitter": "{{chance.twitter()}}",
 "card": "{{chance.cc({type: 'Visa'})}}",
-"date": "{{Date(chance.date())}}",
-"bool": "{{Boolean(true)}}",
+"date": "{{D(chance.date())}}",
+"bool": "{{B(true)}}",
 "info": {
   "first":"{{this._$parent.name.split(' ')[0]}}",
   "last": "{{this._$parent.name.split(' ')[1]}}"

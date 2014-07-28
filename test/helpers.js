@@ -1,5 +1,4 @@
-var chance = require('chance').Chance(),
-  async = require('async'),
+var _ = require('underscore'),
   es = require('event-stream'),
   fs = require('fs'),
   datasets = require('../');
@@ -24,12 +23,10 @@ module.exports.resolveSchemaPath = function (name) {
 };
 
 module.exports.sampleAndStrip = function (array, count, fn) {
-  var sample = chance.pick(array, count);
-  async.each(sample, function (item, callback) {
+  // var sample = chance.pick(array, count);
+  var sample = _.sample(array, count);
+  sample.forEach(function (item) {
     item._id = undefined;
-    callback();
-  }, function (err){
-    if (err) throw err;
-    fn(sample);
   });
+  fn(sample);
 };

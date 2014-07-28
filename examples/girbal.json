@@ -3,8 +3,8 @@
   "name": "{{chance.sentence({words: _.random(3, 8)})}}",
   "dep": "{{chance.string({pool: '0123456789', length: 5})}}",
   "cat": "/{{this.dep}}/{{chance.natural()}}/{{chance.natural()}}",
-  "created_at": "{{Date(faker.Date.past(5))}}",
-  "updated_at": "{{Date(faker.Date.recent(5))}}",
+  "created_at": "{{D(faker.Date.past(5))}}",
+  "updated_at": "{{D(faker.Date.recent(5))}}",
   "desc": [ 1,
     {
       "lang": "en",
@@ -27,7 +27,7 @@
   ],
   "vars": [ "{{_.random(2, 4)}}",
     {
-      "id": "{{Double(counter(0))}}",
+      "id": "{{N(counter(0))}}",
       "img": [
         {
           "height": "{{10 * chance.natural({max: 128})}}",

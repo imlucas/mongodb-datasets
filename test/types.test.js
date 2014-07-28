@@ -6,21 +6,21 @@ describe('generate different types of data', function() {
   before(function(done) {
     var schema = {
       double: {
-        zero: '{{Double(0)}}',
-        one: '{{Double(1)}}',
-        decimal: '{{Double(0.1)}}',
-        neg: '{{Double(-0.1)}}',
-        array: ['{{Double(0)}}']
+        zero: '{{N(0)}}',
+        one: '{{Number(1)}}',
+        decimal: '{{Number(0.1)}}',
+        neg: '{{Number(-0.1)}}',
+        array: ['{{Number(0)}}']
       },
       boolean: {
-        basic: '{{Boolean(true)}}',
+        basic: '{{B(true)}}',
         interp: '{{Boolean(0)}}',
         string: '{{Boolean("false")}}'
       },
       date: {
-        basic: '{{Date(0)}}',
+        basic: '{{D(0)}}',
         string: '{{Date("01/01/2000")}}',
-        type: '{{Date(chance.date())}}'
+        type: '{{Date(c.date())}}'
       },
       primitive: {
         number: 1,
@@ -39,7 +39,7 @@ describe('generate different types of data', function() {
     });
   });
 
-  describe('#double', function() {
+  describe('#number', function() {
     it('should support integer', function () {
       assert.ok(typeof res.item.double.zero === 'number');
       assert.strictEqual(0, res.item.double.zero);

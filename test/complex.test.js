@@ -69,7 +69,7 @@ describe('complex schema', function() {
       return item.friends.length > 1;
     });
     helpers.sampleAndStrip(validItems, 1, function (sample) {
-      var friends = sample.friends;
+      var friends = sample[0].friends;
       assert.notDeepEqual(friends[0], friends[1]);
       done();
     });
@@ -82,11 +82,11 @@ describe('complex schema', function() {
       }).length > 0;
     });
     helpers.sampleAndStrip(validItems, 1, function (sample) {
-      var validSubItems = sample.friends.filter(function (item) {
+      var validSubItems = sample[0].friends.filter(function (item) {
         return item.phones.length > 1;
       });
       helpers.sampleAndStrip(validSubItems, 1, function (sample) {
-        var phones = sample.phones;
+        var phones = sample[0].phones;
         assert.notDeepEqual(phones[0], phones[1]);
         done();
       });

@@ -1,9 +1,9 @@
 {
-  "_$max_version": "{{Double(_$size())}}",
-  "_$attr2_released": "{{Double(this._$max_version / 2)}}",
-  "docId": "{{Double(chance.natural({max: 1000}))}}",
-  "v": "{{Double(counter(0, 1, 1))}}",
+  "_$max_version": "{{N(_$size)}}",
+  "_$attr2_released": "{{N(this._$max_version / 2)}}",
+  "docId": "{{N(chance.natural({max: 1000}))}}",
+  "v": "{{N(counter(0, 1, 1))}}",
   "attr1": "{{chance.color()}}",
-  "attr2": "{{Double(chance.natural())}}{{hide(this.v < this._$attr2_released)}}",
-  "current": "{{Boolean(true)}}{{hide(this.v < this._$max_version)}}"
+  "attr2": "{{N(chance.natural())}}{{hide(this.v < this._$attr2_released)}}",
+  "current": "{{B(true)}}{{hide(this.v < this._$max_version)}}"
 }

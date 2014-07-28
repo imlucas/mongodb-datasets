@@ -3,7 +3,8 @@
 var datasets = require('../'),
   fs = require('fs'),
   yargs = require('yargs')
-    .usage('MongoDB-Datasets version ' + datasets.version)
+    .usage('MongoDB-Datasets version ' + datasets.version + '\n' +
+           'Usage: mongodb-datasets [schema] [options]')
     .example('$0 schema.json -n 10 -o dump.out', '')
     .example('cat schema.json | $0 -n 10 -o -', '')
     .describe(0, 'Path to a template schema file')

@@ -49,7 +49,7 @@ describe('array of primitive types', function() {
       return item.friends.length > 1;
     });
     helpers.sampleAndStrip(validItems, 1, function (sample) {
-      var friends = sample.friends;
+      var friends = sample[0].friends;
       assert.notDeepEqual(friends[0], friends[1]);
       done();
     });
@@ -106,7 +106,7 @@ describe('array of documents', function() {
       return item.friends.length > 1;
     });
     helpers.sampleAndStrip(validItems, 1, function (sample) {
-      var friends = sample.friends;
+      var friends = sample[0].friends;
       assert.notDeepEqual(friends[0], friends[1]);
       done();
     });
@@ -167,7 +167,7 @@ describe('array of embedded docs', function() {
       return item.friends.length > 1;
     });
     helpers.sampleAndStrip(validItems, 1, function (sample) {
-      var friends = sample.friends;
+      var friends = sample[0].friends;
       assert.notDeepEqual(friends[0], friends[1]);
       done();
     });
@@ -228,7 +228,7 @@ describe('embedded arrays', function() {
       return item.friends.length > 1;
     });
     helpers.sampleAndStrip(validItems, 1, function (sample) {
-      var friends = sample.friends;
+      var friends = sample[0].friends;
       assert.notDeepEqual(friends[0], friends[1]);
       done();
     });
@@ -241,11 +241,11 @@ describe('embedded arrays', function() {
       }).length > 0;
     });
     helpers.sampleAndStrip(validItems, 1, function (sample) {
-      var validSubItems = sample.friends.filter(function (item) {
+      var validSubItems = sample[0].friends.filter(function (item) {
         return item.payment_method.length > 1;
       });
       helpers.sampleAndStrip(validSubItems, 1, function (sample) {
-        var payment_methods = sample.payment_method;
+        var payment_methods = sample[0].payment_method;
         assert.notDeepEqual(payment_methods[0], payment_methods[1]);
         done();
       });

@@ -1,0 +1,33 @@
+{
+    "tags": {
+        "allowUnknownTags": true
+    },
+    "source": {
+        "include": [ "./lib/", "./index.js" ],
+        "exclude": [ ],
+        "includePattern": ".+\\.js(doc)?$",
+        "excludePattern": "(^|\\/|\\\\)_"
+    },
+    "plugins": [],
+    "templates": {
+        "cleverLinks": false,
+        "monospaceLinks": false
+    },
+    "opts": {
+        "template": "templates/default",
+        "encoding": "utf8",
+        "destination": "./docs/",
+        "recurse": true,
+        "tutorials": "",
+        "query": "",
+        "private": true,
+        "lenient": false,
+        "version": false,
+        "explain": false,
+        "test": false,
+        "help": false,
+        "verbose": false,
+        "match": "value",
+        "nocolor": false
+    }
+}

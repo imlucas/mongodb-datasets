@@ -10,23 +10,23 @@
     "mongodb-dataset-generator": "bin/mongodb-dataset-generator.js"
   },
   "dependencies": {
-    "bson": "^0.2.19",
-    "chance": "^0.5.6",
+    "bson": "^0.5.6",
+    "chance": "^1.0.4",
     "debug": "^2.1.1",
     "event-stream": "^3.2.2",
-    "faker": "^1.0.0",
-    "joi": "^4.6.2",
+    "faker": "^3.1.0",
+    "joi": "^9.2.0",
     "mongodb-extended-json": "^1.1.2",
     "mongodb-uri": "^0.9.7",
     "underscore": "^1.8.2",
-    "yargs": "^3.4.4"
+    "yargs": "^6.3.0"
   },
   "devDependencies": {
-    "dox": "^0.4.6",
+    "dox": "^0.9.0",
     "gulp": "^3.8.6",
-    "mocha": "^1.20.1",
+    "mocha": "^3.1.2",
     "gulp": "^3.8.11",
-    "mocha": "^2.1.0",
+    "mocha": "^3.1.2",
     "mongodb-importer": "^0.0.0"
   },
   "keywords": [
